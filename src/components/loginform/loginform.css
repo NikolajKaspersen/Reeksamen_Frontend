@@ -1,0 +1,46 @@
+*{box-sizing: border-box}
+
+th, td {
+    border: 1px solid silver;
+    padding:15px;
+}
+
+.login-container {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    float: right;
+}
+
+.login-container input[type=text]{
+    text-align-all: center;
+
+    padding: 6px 6px;
+    margin-top: 8px;
+    margin-right: 10px;
+    font-size: 18px;
+    border: black auto 1px;
+    width: 180px; /* adjust as needed (as long as it doesn't break the topnav) */
+}
+
+
+/* Style the button inside the input container */
+.login-container button {
+    float: right;
+    padding: 10px 10px;
+    background: #ddd;
+    font-size: 18px;
+    border: none;
+}
+
+.login-container:active{
+    overflow: hidden;
+    background-color: #003d76;
+    color: white;
+}
+
+.login-container button:hover {
+    background: #003d76;
+    color: white;
+}
+
