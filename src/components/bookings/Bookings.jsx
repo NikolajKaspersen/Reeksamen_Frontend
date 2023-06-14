@@ -9,8 +9,7 @@ const Bookings = () => {
     const [booking, setbookingList] = useState([]);
 
     useEffect(() => {
-        //facade.fetchBookshelfData(facade.readJwtToken(facade.getToken()).username).then((res) => {
-        facade.fetchData("/api/washing_assistant/all").then((res) => {
+        facade.fetchBookingsData(facade.readJwtToken(facade.getToken()).username).then((res) => {
             //Hvis fetch respsonse har data, tilføjes det til booking med setbooking
 
             if (res) {
@@ -25,7 +24,7 @@ const Bookings = () => {
     return (
         <div>
             <br></br>
-            <h1>List of Washing Assistants</h1>
+            <h1>Your bookings</h1>
             <h3>{dataFromServer}</h3>
 
             {/*Vi mapper hvert item vi har fetchet */}
@@ -43,19 +42,19 @@ const Bookings = () => {
                             <thead>
                             <tr>
                                 <th style={{width: "20%"}}>Id</th>
-                                <th style={{width: "20%"}}>Name</th>
-                                <th style={{width: "20%"}}>Primary Language</th>
-                                <th style={{width: "20%"}}>Years of Experience</th>
-                                <th style={{width: "20%"}}>Price Per Hour</th>
+                                <th style={{width: "20%"}}>Date and Time</th>
+                                <th style={{width: "20%"}}>Duration</th>
+                                <th style={{width: "20%"}}>User</th>
+                                <th style={{width: "20%"}}>Car</th>
                                 <th style={{width: "20%"}}>Hire assistant</th>
                             </tr>
                             </thead>
                             <tbody key={item.id}>
                             <tr>
                                 <td>{item.id}</td>
+                                <td>{item.dateAndTime}</td>
+                                <td>{item.duration}</td>
                                 <td>{item.name}</td>
-                                <td>{item.primaryLanguage}</td>
-                                <td>{item.yearsOfExperience}</td>
                                 <td>{item.pricePrHour}</td>
                                 <td>
                                     {/* der skal nok tilføjes en user hertil */}

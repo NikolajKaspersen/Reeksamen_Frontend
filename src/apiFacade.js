@@ -2,12 +2,8 @@
 const URL = "http://localhost:8080/exam_test";
 
 //TODO Update this with new
-const URLWashingAssistants = "http://localhost:8080/api/washing_assistant";
-const URLBooking = "http://localhost:8080/exam_test/api/booking";
-
-//TODO Clean up googleURL stuff
-// Denne streng burde nok gemmes væk
-const GoogleURL = "https://www.googleapis.com/books/v1/volumes?q=:keyes&key=AIzaSyCZoXruFbr28UKR2Z6HXgtXqnpRA0shUTk"
+const URLWashingAssistants = "http://localhost:8080/exam_test/api/washing_assistant";
+const URLBooking = "http://localhost:8080/exam_test/api/booking/";
 
 function handleHttpErrors(res) {
     if (!res.ok) {

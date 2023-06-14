@@ -42,7 +42,7 @@ const WashingAssistants = () => {
                         <Table className="table table-info" bordered hover>
                             <thead>
                             <tr>
-                                <th style={{width: "20%"}}>Id</th>
+                                <th style={{width: "20%"}}>Assistant Id</th>
                                 <th style={{width: "20%"}}>Name</th>
                                 <th style={{width: "20%"}}>Primary Language</th>
                                 <th style={{width: "20%"}}>Years of Experience</th>
