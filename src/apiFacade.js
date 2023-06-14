@@ -2,8 +2,8 @@
 const URL = "http://localhost:8080/exam_test";
 
 //TODO Update this with new
-const URLWashingAssistants = "http://localhost:8080/api/washing_assistant/";
-const URLBookshelf = "http://localhost:8080/api/bookshelf/";
+const URLWashingAssistants = "http://localhost:8080/api/washing_assistant";
+const URLBooking = "http://localhost:8080/exam_test/api/booking";
 
 //TODO Clean up googleURL stuff
 // Denne streng burde nok gemmes væk
@@ -29,21 +29,15 @@ function apiFacade() {
             })
     }
 
-    const fetchData = (ressource) => {
+    const fetchData = (resource) => {
         const options = makeOptions("GET", true); //True add's the token
-        return fetch(URL + ressource, options).then(handleHttpErrors);
+        return fetch(URL + resource, options).then(handleHttpErrors);
     }
 
-    const fetchBookshelfData = (user_name) => {
+    const fetchBookingsData = (user_name) => {
         const options = makeOptions("GET"); //True add's the token
-        console.log("URL: " + URLBookshelf + user_name);
-        return fetch(URLBookshelf + user_name, options).then(handleHttpErrors);
-    }
-
-    //TODO Delete
-    const fetchDataGoogle = () => {
-        const options = makeOptions("GET");
-        return fetch(GoogleURL, options).then(handleHttpErrors);
+        console.log("URL: " + URLBooking + user_name);
+        return fetch(URLBooking + user_name, options).then(handleHttpErrors);
     }
 
     const makeOptions = (method, addToken, body) => {
@@ -108,9 +102,8 @@ function apiFacade() {
         login,
         logout,
         fetchData,
-        fetchDataGoogle,
         readJwtToken,
-        fetchBookshelfData,
+        fetchBookingsData,
 
         review(bookshelfId, bookId, reviewScore, reviewText) {
 

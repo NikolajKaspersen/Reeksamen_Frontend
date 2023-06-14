@@ -7,12 +7,10 @@ import Header from "./components/header/Header.jsx";
 import About from "./components/about/About.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import apiFacade from "./apiFacade";
-import Library from "./components/library/Library.jsx";
 import Contact from "./components/contact/Contact.jsx";
 import Registration from "./components/registration/registration";
-import Bookshelf from "./components/bookshelf/Bookshelf.jsx";
-import Table_Example from "./components/Page_Example/Table_Example.jsx";
 import WashingAssistants from "./components/washingassistants/WashingAssistants.jsx";
+import Bookings from "./components/bookings/Bookings.jsx";
 
 
 function App() {
@@ -36,7 +34,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/about" element={<About/>}/>
                     <Route path="/contact" element={<Contact/>}/>
-                    <Route path="/library" element={<Library/>}/>
+                    <Route path="/bookings" element={<Bookings/>}/>
                     <Route path="/washing_assistants" element={<WashingAssistants/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/login"
