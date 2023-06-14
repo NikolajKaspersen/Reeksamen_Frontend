@@ -30,6 +30,10 @@ function apiFacade() {
         return fetch(URL + resource, options).then(handleHttpErrors);
     }
 
+    const deleteBooking = (id) => {
+        const options = makeOptions("DELETE", true); //True add's the token
+        return fetch(URLBooking + id, options).then(handleHttpErrors);
+    }
     const fetchAllBookingsData = () => {
         const options = makeOptions("GET", true); //True add's the token
         return fetch(URLBooking + "all", options).then(handleHttpErrors);
@@ -111,6 +115,7 @@ function apiFacade() {
         fetchBookingsData,
         fetchAllBookingsData,
         isAdmin,
+        deleteBooking,
 
         review(bookshelfId, bookId, reviewScore, reviewText) {
 

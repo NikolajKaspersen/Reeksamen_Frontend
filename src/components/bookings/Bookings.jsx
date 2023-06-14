@@ -8,7 +8,15 @@ const Bookings = () => {
     // Bog data gemmes på en liste med useState
     const [booking, setbookingList] = useState([]);
 
-    useEffect(() => {
+    function deleteBooking(id) {
+        facade.deleteBooking(id).then((res) => {
+            if (id == res.id) {
+                retrieveBookingData();
+            }
+        })
+    }
+
+    function retrieveBookingData() {
         if (facade.isAdmin()) {
             facade.fetchAllBookingsData().then((res) => {
                 if (res) {
@@ -18,6 +26,7 @@ const Bookings = () => {
                 setDataFromServer(res.msg);
             })
         } else if (facade.readJwtToken(facade.getToken()).username != null) {
+            //US-2 User sees all their bookings
             facade.fetchBookingsData(facade.readJwtToken(facade.getToken()).username).then((res) => {
                 if (res) {
                     setbookingList(res);
@@ -26,6 +35,10 @@ const Bookings = () => {
                 setDataFromServer(res.msg);
             })
         }
+    }
+
+    useEffect(() => {
+        retrieveBookingData();
     }, []);
 
     return (
@@ -67,16 +80,16 @@ const Bookings = () => {
                                 <td>
                                     <Button
                                         //TODO Method to send to hire page
-                                        //onClick={() => addReview(review_text, )}
+                                        //onClick={() => hire()}
                                         className="btn btn-primary">
                                         Hire
                                     </Button>
                                 </td>
                                 <td>
                                     {facade.isAdmin() &&
+                                        //US-7 Admin Delete bookings
                                         <Button
-                                            //TODO Method to delete booking
-                                            //onClick={() => addReview(review_text, )}
+                                            onClick={() => deleteBooking(item.id)}
                                             className="btn btn-danger">
                                             Delete Booking
                                         </Button>

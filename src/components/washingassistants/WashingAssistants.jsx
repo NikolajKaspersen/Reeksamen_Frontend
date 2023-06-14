@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import facade from "../../apiFacade.js";
 
+//US-1 See all Washing Assistants
 const WashingAssistants = () => {
     const [dataFromServer, setDataFromServer] = useState("Loading...");
     // Bog data gemmes på en liste med useState
