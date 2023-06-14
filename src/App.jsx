@@ -11,6 +11,7 @@ import Contact from "./components/contact/Contact.jsx";
 import Registration from "./components/registration/registration";
 import WashingAssistants from "./components/washingassistants/WashingAssistants.jsx";
 import Bookings from "./components/bookings/Bookings.jsx";
+import Admin from "./components/admin/Admin.jsx";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/bookings" element={<Bookings/>}/>
                     <Route path="/washing_assistants" element={<WashingAssistants/>}/>
                     <Route path="/registration" element={<Registration/>}/>
+                    <Route path="/admin" element={<Admin/>}/>
                     <Route path="/login"
                            element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} user={user}
                                            setUser={setUser}/>}/>

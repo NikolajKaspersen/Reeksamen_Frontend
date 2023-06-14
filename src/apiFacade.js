@@ -30,6 +30,11 @@ function apiFacade() {
         return fetch(URL + resource, options).then(handleHttpErrors);
     }
 
+    const fetchAllBookingsData = () => {
+        const options = makeOptions("GET", true); //True add's the token
+        return fetch(URLBooking + "all", options).then(handleHttpErrors);
+    }
+
     const fetchBookingsData = (user_name) => {
         const options = makeOptions("GET"); //True add's the token
         console.log("URL: " + URLBooking + user_name);
@@ -90,6 +95,10 @@ function apiFacade() {
             })
     }
 
+    function isAdmin(){
+        return facade.loggedIn() && facade.readJwtToken(facade.getToken()).roles.includes("admin")
+    }
+
     return {
         makeOptions,
         setToken,
@@ -100,6 +109,8 @@ function apiFacade() {
         fetchData,
         readJwtToken,
         fetchBookingsData,
+        fetchAllBookingsData,
+        isAdmin,
 
         review(bookshelfId, bookId, reviewScore, reviewText) {
 

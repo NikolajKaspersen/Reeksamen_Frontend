@@ -3,40 +3,34 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import facade from "../../apiFacade.js";
 
-const Bookings = () => {
+const Admin = () => {
     const [dataFromServer, setDataFromServer] = useState("Loading...");
     // Bog data gemmes på en liste med useState
-    const [booking, setbookingList] = useState([]);
+    const [washingAssistant, setwashingAssistantList] = useState([]);
 
     useEffect(() => {
-        if (facade.isAdmin()) {
-            facade.fetchAllBookingsData().then((res) => {
-                if (res) {
-                    setbookingList(res);
-                    console.log(res)
-                }
-                setDataFromServer(res.msg);
-            })
-        } else if (facade.readJwtToken(facade.getToken()).username != null) {
-            facade.fetchBookingsData(facade.readJwtToken(facade.getToken()).username).then((res) => {
-                if (res) {
-                    setbookingList(res);
-                    console.log(res)
-                }
-                setDataFromServer(res.msg);
-            })
-        }
+        //facade.fetchBookshelfData(facade.readJwtToken(facade.getToken()).username).then((res) => {
+        facade.fetchData("/api/washing_assistant/all").then((res) => {
+            //Hvis fetch respsonse har data, tilføjes det til washingAssistant med setwashingAssistant
+
+            if (res) {
+                setwashingAssistantList(res);
+                console.log(res)
+            }
+            setDataFromServer(res.msg);
+            // console.log(res.items)
+        });
     }, []);
 
     return (
         <div>
             <br></br>
-            <h1>Your bookings</h1>
+            <h1>List of Washing Assistants</h1>
             <h3>{dataFromServer}</h3>
 
             {/*Vi mapper hvert item vi har fetchet */}
 
-            {booking.map((item) => {
+            {washingAssistant.map((item) => {
                 //console.log("hello hello", items);
                 //console.log("Nummer 2", item.id);
                 //console.log("Nummer 3", item.etag);
@@ -48,23 +42,23 @@ const Bookings = () => {
                         <Table className="table table-info" bordered hover>
                             <thead>
                             <tr>
-                                <th style={{width: "20%"}}>Id</th>
-                                <th style={{width: "20%"}}>Date and Time</th>
-                                <th style={{width: "20%"}}>Duration</th>
-                                <th style={{width: "20%"}}>User</th>
-                                <th style={{width: "20%"}}>Car</th>
+                                <th style={{width: "20%"}}>Assistant Id</th>
+                                <th style={{width: "20%"}}>Name</th>
+                                <th style={{width: "20%"}}>Primary Language</th>
+                                <th style={{width: "20%"}}>Years of Experience</th>
+                                <th style={{width: "20%"}}>Price Per Hour</th>
                                 <th style={{width: "20%"}}>Hire assistant</th>
-                                {facade.isAdmin() && <th style={{width: "20%"}}>Delete Booking</th>}
                             </tr>
                             </thead>
                             <tbody key={item.id}>
                             <tr>
                                 <td>{item.id}</td>
-                                <td>{item.dateAndTime}</td>
-                                <td>{item.duration}</td>
                                 <td>{item.name}</td>
+                                <td>{item.primaryLanguage}</td>
+                                <td>{item.yearsOfExperience}</td>
                                 <td>{item.pricePrHour}</td>
                                 <td>
+                                    {/* der skal nok tilføjes en user hertil */}
                                     <Button
                                         //TODO Method to send to hire page
                                         //onClick={() => addReview(review_text, )}
@@ -73,15 +67,16 @@ const Bookings = () => {
                                     </Button>
                                 </td>
                                 <td>
-                                    {facade.isAdmin() &&
+                                    {facade.loggedIn() && facade.readJwtToken(facade.getToken()).roles.includes("admin") &&
                                         <Button
-                                            //TODO Method to delete booking
+                                            //TODO Method to send to hire page
                                             //onClick={() => addReview(review_text, )}
                                             className="btn btn-danger">
                                             Delete Booking
                                         </Button>
                                     }
                                 </td>
+
                             </tr>
                             </tbody>
                         </Table>
@@ -93,4 +88,4 @@ const Bookings = () => {
 
 }
 
-export default Bookings;
+export default Admin;
