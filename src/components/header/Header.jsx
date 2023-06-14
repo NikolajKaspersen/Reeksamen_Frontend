@@ -42,16 +42,13 @@ const Header = ({loggedIn, setLoggedIn, user, setUser}) => {
                 <a className="nav-item nav-link" href="/contact">Contact</a>
 
                 {/*Navbar links, der kun vises når man er logget ind i Applikationen*/}
-                {/*{facade.loggedIn()*/}
-                {/*    && <a className="nav-item nav-link" href="/library">Library</a>*/}
-                {/*}*/}
-                {/*{facade.loggedIn()*/}
-                {/*    && <a className="nav-item nav-link" href="/table_example">Table_Example</a>*/}
-                {/*}*/}
-
-                <a className="nav-item nav-link" href="/bookings">Bookings</a>
-                <a className="nav-item nav-link" href="/washing_assistants">Washing Assistants</a>
-
+                {facade.loggedIn()
+                    && <a className="nav-item nav-link" href="/bookings">Bookings</a>
+                }
+                {facade.loggedIn()
+                    && <a className="nav-item nav-link" href="/washing_assistants">Washing Assistants</a>
+                }
+                
                 {/*Navbar link, der kun vises når man ikke er logget ind, som føre til Registration*/}
                 {!facade.loggedIn()
                     && <a className="nav-item nav-link" href="/registration">Sign-up</a>}
