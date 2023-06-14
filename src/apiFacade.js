@@ -1,7 +1,10 @@
+//Localhost IP
+const URL = "http://localhost:8080/exam_test";
 
-const URL = "http://localhost:8080";
+//TODO Update this with new
 const URLBookshelf = "http://localhost:8080/api/bookshelf/";
 
+//TODO Clean up googleURL stuff
 // Denne streng burde nok gemmes væk
 const GoogleURL = "https://www.googleapis.com/books/v1/volumes?q=:keyes&key=AIzaSyCZoXruFbr28UKR2Z6HXgtXqnpRA0shUTk"
 
