@@ -2,6 +2,7 @@
 const URL = "http://localhost:8080/exam_test";
 
 //TODO Update this with new
+const URLWashingAssistants = "http://localhost:8080/api/washing_assistant/";
 const URLBookshelf = "http://localhost:8080/api/bookshelf/";
 
 //TODO Clean up googleURL stuff
@@ -32,16 +33,18 @@ function apiFacade() {
         const options = makeOptions("GET", true); //True add's the token
         return fetch(URL + ressource, options).then(handleHttpErrors);
     }
+
     const fetchBookshelfData = (user_name) => {
         const options = makeOptions("GET"); //True add's the token
         console.log("URL: " + URLBookshelf + user_name);
         return fetch(URLBookshelf + user_name, options).then(handleHttpErrors);
     }
 
+    //TODO Delete
     const fetchDataGoogle = () => {
         const options = makeOptions("GET");
-       return fetch(GoogleURL, options).then(handleHttpErrors);
-      }
+        return fetch(GoogleURL, options).then(handleHttpErrors);
+    }
 
     const makeOptions = (method, addToken, body) => {
         var opts = {
@@ -60,14 +63,6 @@ function apiFacade() {
         return opts;
     }
 
-    // const addReview = (review) => {
-    //     const options = makeOptions("POST", true, review);
-    //     return fetch(URL + "/api/review", options)
-    //         .then(handleHttpErrors)
-    //         .then(res => {
-    //             console.log(res);
-    //         })
-    // }
     const setToken = (token) => {
         localStorage.setItem('jwtToken', token)
     }
@@ -96,8 +91,7 @@ function apiFacade() {
         return JSON.parse(jsonPayload);
     }
 
-    function review(bookshelfId, bookId, reviewScore, reviewText)
-    {
+    function review(bookshelfId, bookId, reviewScore, reviewText) {
         const options = makeOptions("POST", true, {bookshelfId, reviewScore, reviewText});
         return fetch(URL + "/api/review", options)
             .then(handleHttpErrors)

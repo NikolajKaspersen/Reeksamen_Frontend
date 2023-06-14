@@ -50,7 +50,7 @@ const Header = ({loggedIn, setLoggedIn, user, setUser}) => {
                 {/*}*/}
 
                 <a className="nav-item nav-link" href="/library">Library</a>
-                <a className="nav-item nav-link" href="/table_example">Table_Example</a>
+                <a className="nav-item nav-link" href="/washing_assistants">Washing Assistants</a>
 
                 {/*Navbar link, der kun vises når man ikke er logget ind, som føre til Registration*/}
                 {!facade.loggedIn()

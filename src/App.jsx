@@ -12,6 +12,7 @@ import Contact from "./components/contact/Contact.jsx";
 import Registration from "./components/registration/registration";
 import Bookshelf from "./components/bookshelf/Bookshelf.jsx";
 import Table_Example from "./components/Page_Example/Table_Example.jsx";
+import WashingAssistants from "./components/washingassistants/WashingAssistants.jsx";
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
                     <Route path="/about" element={<About/>}/>
                     <Route path="/contact" element={<Contact/>}/>
                     <Route path="/library" element={<Library/>}/>
-                    <Route path="/table_example" element={<Table_Example/>}/>
+                    <Route path="/washing_assistants" element={<WashingAssistants/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/login"
                            element={<LogIn loggedIn={loggedIn} setLoggedIn={setLoggedIn} user={user}
