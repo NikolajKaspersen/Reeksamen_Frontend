@@ -42,9 +42,7 @@ const Header = ({loggedIn, setLoggedIn, user, setUser}) => {
                 <a className="nav-item nav-link" href="/contact">Contact</a>
 
                 {/*Navbar links, der kun vises når man er logget ind i Applikationen*/}
-                {facade.loggedIn()
-                    && <a className="nav-item nav-link" href="/bookings">Bookings</a>
-                }
+
                 {facade.loggedIn()
                     && <a className="nav-item nav-link" href="/washing_assistants">Washing Assistants</a>
                 }
@@ -53,11 +51,15 @@ const Header = ({loggedIn, setLoggedIn, user, setUser}) => {
                 {!facade.loggedIn()
                     && <a className="nav-item nav-link" href="/registration">Sign-up</a>}
 
+
+                {/*Navbar link, der kun bliver vist for login, med rollen User*/}
+                {facade.loggedIn() && facade.readJwtToken(facade.getToken()).roles.includes("admin") &&
+                    <a className="nav-item nav-link" href="/bookings">Bookings</a>
+                }
                 {/*Navbar link, der kun bliver vist for login, med rollen Admin*/}
                 {facade.loggedIn() && facade.readJwtToken(facade.getToken()).roles.includes("admin") &&
                     <a className="nav-item nav-link" href="/admin">Admin</a>
                 }
-
                 {/*Navbar element, der opdeler Navbaren mellem normale links og login formularen*/}
                 <div className="Nav-right">
                     {/*check om brugeren er logget ind eller ej*/}

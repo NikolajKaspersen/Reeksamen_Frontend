@@ -5,77 +5,59 @@ import facade from "../../apiFacade.js";
 
 //US-1 See all Washing Assistants
 const WashingAssistants = () => {
-    const [dataFromServer, setDataFromServer] = useState("Loading...");
+    const [dataFromServer, setDataFromServer] = useState([]);
     // Bog data gemmes på en liste med useState
-    const [washingAssistant, setwashingAssistantList] = useState([]);
 
     useEffect(() => {
-        //facade.fetchBookshelfData(facade.readJwtToken(facade.getToken()).username).then((res) => {
-        facade.fetchData("/api/washing_assistant/all").then((res) => {
-            //Hvis fetch respsonse har data, tilføjes det til washingAssistant med setwashingAssistant
-
+        facade.fetchAllWashingAssistants().then((res) => {
             if (res) {
-                setwashingAssistantList(res);
+                setDataFromServer(res);
                 console.log(res)
             }
-            setDataFromServer(res.msg);
-            // console.log(res.items)
         });
     }, []);
 
     return (
         <div>
-            <br></br>
+            <br/>
             <h1>List of Washing Assistants</h1>
-            <h3>{dataFromServer}</h3>
-
-            {/*Vi mapper hvert item vi har fetchet */}
-
-            {washingAssistant.map((item) => {
-                //console.log("hello hello", items);
-                //console.log("Nummer 2", item.id);
-                //console.log("Nummer 3", item.etag);
-
-                return (
-                    <>
-                        <br/>
-
-                        <Table className="table table-info" bordered hover>
-                            <thead>
-                            <tr>
-                                <th style={{width: "20%"}}>Assistant Id</th>
-                                <th style={{width: "20%"}}>Name</th>
-                                <th style={{width: "20%"}}>Primary Language</th>
-                                <th style={{width: "20%"}}>Years of Experience</th>
-                                <th style={{width: "20%"}}>Price Per Hour</th>
-                                <th style={{width: "20%"}}>Hire assistant</th>
-                            </tr>
-                            </thead>
-                            <tbody key={item.id}>
-                            <tr>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                                <td>{item.primaryLanguage}</td>
-                                <td>{item.yearsOfExperience}</td>
-                                <td>{item.pricePrHour}</td>
-                                <td>
-                                    {/* der skal nok tilføjes en user hertil */}
-                                    <Button
-                                        //TODO Method to send to hire page
-                                        //onClick={() => addReview(review_text, )}
-                                        className="btn btn-primary">
-                                        Hire
-                                    </Button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </Table>
-                    </>
-                );
-            })}
+            {dataFromServer.map((item) => (
+                <Table className="table table-info" bordered hover={item.id}>
+                    <thead>
+                    <tr>
+                        <th style={{width: "20%"}}>Assistant Id</th>
+                        <th style={{width: "20%"}}>Name</th>
+                        <th style={{width: "20%"}}>Primary Language</th>
+                        <th style={{width: "20%"}}>Years of Experience</th>
+                        <th style={{width: "20%"}}>Price Per Hour</th>
+                        <th style={{width: "20%"}}>Hire assistant</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.Primary_language}</td>
+                        <td>{item.years_of_experience}</td>
+                        <td>{item.price_per_hour}</td>
+                        <td>
+                            {/* der skal nok tilføjes en user hertil */}
+                            <Button
+                                className={"btn btn-primary"}
+                                onClick={() => {
+                                    facade.hireAssistant(item.id).then(r => console.log(r));
+                                }
+                                }
+                            >
+                                Hire
+                            </Button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
+            ))}
         </div>
-    );
-
-}
+    )
+};
 
 export default WashingAssistants;

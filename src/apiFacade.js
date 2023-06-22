@@ -1,13 +1,9 @@
 //Localhost IP
-const URL = "http://localhost:8080/exam_test";
-
-//TODO Update this with new
-const URLWashingAssistants = "http://localhost:8080/exam_test/api/washing_assistant";
-const URLBooking = "http://localhost:8080/exam_test/api/booking/";
+const URL = "http://localhost:8080/NikolajEksamenKode_war_exploded";
 
 function handleHttpErrors(res) {
     if (!res.ok) {
-        return Promise.reject({status: res.status, fullError: res.json()})
+        return Promise.reject({ status: res.status, fullError: res.json() });
     }
     return res.json();
 }
@@ -24,25 +20,44 @@ function apiFacade() {
                 setToken(res.token)
             })
     }
-
+    //
     const fetchData = (resource) => {
         const options = makeOptions("GET", true); //True add's the token
         return fetch(URL + resource, options).then(handleHttpErrors);
     }
-
+    //this deletes a booking
     const deleteBooking = (id) => {
-        const options = makeOptions("DELETE", true); //True add's the token
-        return fetch(URLBooking + id, options).then(handleHttpErrors);
-    }
+        const options = makeOptions("DELETE", true); //True adds the token
+        console.log("URL: " + URL + "/api/bookings/" + id); // Just for logging, you can remove this line
+        return fetch(URL + "/api/bookings/"+ id, options).then(handleHttpErrors);
+    };
+
+    //this fetches all bookings
     const fetchAllBookingsData = () => {
-        const options = makeOptions("GET", true); //True add's the token
-        return fetch(URLBooking + "all", options).then(handleHttpErrors);
+        const options = makeOptions("GET", true); //True adds the token
+        return fetch(URL + "/api/bookings", options).then(handleHttpErrors);
     }
 
+    const fetchAllWashingAssistants = () => {
+        const options = makeOptions("GET", true); //True adds the token
+        return fetch(URL + "/api/washingassistants", options).then(handleHttpErrors);
+    }
+
+    //this fetches all bookings for a specific user
     const fetchBookingsData = (user_name) => {
         const options = makeOptions("GET"); //True add's the token
         console.log("URL: " + URLBooking + user_name);
         return fetch(URLBooking + user_name, options).then(handleHttpErrors);
+    }
+
+    const createWashingAssistant = async (washingAssistant) => {
+        try {
+            const res = await fetch(URL + "/api/washingassistants", makeOptions("POST", true, washingAssistant));
+            const data = await res.json();
+            return data;
+        }catch (err) {
+            console.log("Error while creating washingAssistant: ", err);
+        }
     }
 
     const makeOptions = (method, addToken, body) => {
@@ -116,6 +131,8 @@ function apiFacade() {
         fetchAllBookingsData,
         isAdmin,
         deleteBooking,
+        createWashingAssistant,
+        fetchAllWashingAssistants,
 
         review(bookshelfId, bookId, reviewScore, reviewText) {
 
